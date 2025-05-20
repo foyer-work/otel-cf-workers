@@ -19,7 +19,7 @@
 		"check:types": "tsc --noEmit",
 		"watch": "tsc --watch",
 		"check:husky": "husky",
-		"prepare": "run-s -l husky build:versions build:src",
+		"prepare": "run-s -l check:husky build:versions build:src",
 		"test": "vitest run",
 		"test:dev": "vitest",
 		"ci": "run-s -l clean build check"
