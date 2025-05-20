@@ -1,5 +1,11 @@
 # @microlabs/otel-cf-workers
 
+## 1.0.0-rc.53
+
+### Patch Changes
+
+- a5962a1: apply PostProcessorFn before final export to exporter
+
 ## 1.0.0-rc.52
 
 ### Minor Changes
