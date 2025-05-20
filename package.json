@@ -21,7 +21,8 @@
 		"prepare": "husky",
 		"test": "vitest run",
 		"test:dev": "vitest",
-		"ci": "run-s -l clean build check"
+		"ci": "run-s -l clean build check",
+		"postinstall": "pnpm run build"
 	},
 	"files": [
 		"dist"
