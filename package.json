@@ -18,11 +18,11 @@
 		"check:format": "prettier . --check --ignore-unknown",
 		"check:types": "tsc --noEmit",
 		"watch": "tsc --watch",
-		"prepare": "husky",
+		"check:husky": "husky",
+		"prepare": "run-s -l husky build:versions build:src",
 		"test": "vitest run",
 		"test:dev": "vitest",
-		"ci": "run-s -l clean build check",
-		"postinstall": "pnpm run build"
+		"ci": "run-s -l clean build check"
 	},
 	"files": [
 		"dist"
