@@ -2,7 +2,7 @@ import { Context, Span } from '@opentelemetry/api'
 import { ReadableSpan, SpanExporter } from '@opentelemetry/sdk-trace-base'
 import { ExportResultCode } from '@opentelemetry/core'
 import { getActiveConfig } from './config'
-import { TraceFlushableSpanProcessor } from './types'
+import { PostProcessorFn, TraceFlushableSpanProcessor } from './types'
 import { TailSampleFn } from './sampling'
 
 function getSampler(): TailSampleFn {
@@ -11,6 +11,14 @@ function getSampler(): TailSampleFn {
 		console.log('Could not find config for sampling, sending everything by default')
 	}
 	return conf ? conf.sampling.tailSampler : () => true
+}
+
+function getPostProcessor(): PostProcessorFn {
+	const conf = getActiveConfig()
+	if (!conf) {
+		console.log('Could not find config for post-processing, not processing anything by default')
+	}
+	return conf ? conf.postProcessor : (spans) => spans
 }
 
 class TraceState {
@@ -73,6 +81,8 @@ class TraceState {
 
 	private async exportSpans(spans: ReadableSpan[]): Promise<void> {
 		await scheduler.wait(1)
+		const postProcessor = getPostProcessor()
+		spans = postProcessor(spans)
 		const promise = new Promise<void>((resolve, reject) => {
 			this.exporter.export(spans, (result) => {
 				if (result.code === ExportResultCode.SUCCESS) {
