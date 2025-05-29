@@ -123,7 +123,7 @@ export class BatchTraceSpanProcessor implements TraceFlushableSpanProcessor {
 		if (traceId) {
 			await this.getTraceState(traceId).flush()
 		} else {
-			const promises = Object.values(this.traces).map((traceState: TraceState) => traceState.flush)
+			const promises = Object.values(this.traces).map((traceState: TraceState) => traceState.flush())
 			await Promise.allSettled(promises)
 		}
 	}
