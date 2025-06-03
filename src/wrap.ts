@@ -1,9 +1,9 @@
 const unwrapSymbol = Symbol('unwrap')
 
-type Wrapped<T> = { [unwrapSymbol]: T } & T
+type Wrapped<T extends object> = { [unwrapSymbol]: T } & T
 
-export function isWrapped<T>(item: T): item is Wrapped<T> {
-	return item && !!(item as Wrapped<T>)[unwrapSymbol]
+export function isWrapped<T extends object>(item: T): item is Wrapped<T> {
+	return item && unwrapSymbol in item
 }
 
 export function isProxyable(item: any) {

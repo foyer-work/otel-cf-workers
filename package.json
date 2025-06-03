@@ -58,6 +58,5 @@
 	"license": "BSD-3-Clause",
 	"lint-staged": {
 		"*": "prettier --ignore-unknown --write"
-	},
-	"packageManager": "pnpm@9.10.0"
+	}
 }

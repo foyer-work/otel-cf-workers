@@ -158,8 +158,8 @@ function createHandlerFlowFn<T extends Trigger, E extends Env, R extends any>(
 					span.setAttributes(attributes)
 				}
 
-				if (instrumentation.executionSucces) {
-					instrumentation.executionSucces(span, trigger, result)
+				if (instrumentation.executionSuccess) {
+					instrumentation.executionSuccess(span, trigger, result)
 				}
 				return result
 			} catch (error) {

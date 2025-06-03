@@ -154,7 +154,7 @@ export class QueueInstrumentation implements HandlerInstrumentation<MessageBatch
 		return proxyMessageBatch(batch, this.count)
 	}
 
-	executionSucces(span: Span) {
+	executionSuccess(span: Span) {
 		if (this.count) {
 			this.count.ackRemaining()
 			span.setAttributes(this.count.toAttributes())

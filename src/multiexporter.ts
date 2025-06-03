@@ -1,4 +1,4 @@
-import { SpanExporter } from '@opentelemetry/sdk-trace-base'
+import { ReadableSpan, SpanExporter } from '@opentelemetry/sdk-trace-base'
 import { ExportResult, ExportResultCode } from '@opentelemetry/core'
 
 // First implementation, completely synchronous, more tested.
@@ -9,7 +9,7 @@ export class MultiSpanExporter implements SpanExporter {
 		this.exporters = exporters
 	}
 
-	export(items: any[], resultCallback: (result: ExportResult) => void): void {
+	export(items: ReadableSpan[], resultCallback: (result: ExportResult) => void): void {
 		for (const exporter of this.exporters) {
 			exporter.export(items, resultCallback)
 		}
@@ -30,7 +30,7 @@ export class MultiSpanExporterAsync implements SpanExporter {
 		this.exporters = exporters
 	}
 
-	export(items: any[], resultCallback: (result: ExportResult) => void): void {
+	export(items: ReadableSpan[], resultCallback: (result: ExportResult) => void): void {
 		const promises = this.exporters.map(
 			(exporter) =>
 				new Promise<ExportResult>((resolve) => {
@@ -42,7 +42,7 @@ export class MultiSpanExporterAsync implements SpanExporter {
 			const failed = results.filter((result) => result.code === ExportResultCode.FAILED)
 			if (failed.length > 0) {
 				// not ideal, but just return the first error
-				resultCallback({ code: ExportResultCode.FAILED, error: failed[0]!.error })
+				resultCallback({ code: ExportResultCode.FAILED, error: failed[0]?.error })
 			} else {
 				resultCallback({ code: ExportResultCode.SUCCESS })
 			}

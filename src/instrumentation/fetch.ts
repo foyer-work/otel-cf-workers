@@ -152,7 +152,7 @@ export const fetchInstrumentation: HandlerInstrumentation<IncomingRequest, OrPro
 	getAttributesFromResult: (response) => {
 		return gatherResponseAttributes(response)
 	},
-	executionSucces: updateSpanNameOnRoute,
+	executionSuccess: updateSpanNameOnRoute,
 	executionFailed: updateSpanNameOnRoute,
 }
 

@@ -23,7 +23,7 @@ export interface HandlerInstrumentation<T extends Trigger, R extends any> {
 	getInitialSpanInfo: (trigger: T) => InitialSpanInfo
 	getAttributesFromResult?: (result: Awaited<R>) => Attributes
 	instrumentTrigger?: (trigger: T) => T
-	executionSucces?: (span: Span, trigger: T, result: Awaited<R>) => void
+	executionSuccess?: (span: Span, trigger: T, result: Awaited<R>) => void
 	executionFailed?: (span: Span, trigger: T, error?: any) => void
 }
 

@@ -15,9 +15,7 @@
  */
 
 import { ContextManager, Context, ROOT_CONTEXT } from '@opentelemetry/api'
-//@ts-ignore
 import { AsyncLocalStorage } from 'node:async_hooks'
-//@ts-ignore
 import { EventEmitter } from 'node:events'
 
 type Func<T> = (...args: unknown[]) => T
